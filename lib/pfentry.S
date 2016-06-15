@@ -66,42 +66,47 @@ call *%rax
 // may find that you have to rearrange your code in non-obvious
 // ways as registers become unavailable as scratch space.
 //
-
-
-
 // LAB 4: Your code here.
-movq 136(%rsp), %rbx  //Load RIP 
-movq 152(%rsp), %rcx  //Load RSP
-//Move pointer on the stack and save the RIP on trap time stack 
-subq $8, %rcx          
-movq %rbx, (%rcx) 
-//Now update value of trap time stack rsp after pushing rip in UXSTACKTOP
-movq %rcx, 152(%rsp)
 
-// Restore the trap-time registers.  After you do this, you
-// can no longer modify any general-purpose registers.
-// LAB 4: Your code here.
-addq $16,%rsp
-POPA_ 
-// Restore eflags from the stack.  After you do this, you can
-// no longer use arithmetic operations or anything else that
-// modifies eflags.
-// LAB 4: Your code here.
-addq $8, %rsp
-popfq
+    // Restore the trap-time registers.  After you do this, you
+    // can no longer modify any general-purpose registers.
+    // LAB 4: Your code here.
 
-// Switch back to the adjusted trap-time stack.
-// LAB 4: Your code here.
-popq %rsp
+    // Restore eflags from the stack.  After you do this, you can
+    // no longer use arithmetic operations or anything else that
+    // modifies eflags.
+    // LAB 4: Your code here.
 
-// Return to re-execute the instruction that faulted.
-// LAB 4: Your code here.
-ret
+    // Switch back to the adjusted trap-time stack.
+    // LAB 4: Your code here.
 
+    // Return to re-execute the instruction that faulted.
+    // LAB 4: Your code here.
 
-
-
-
-
-
-
+	movq 136(%rsp), %rbx  //Load RIP 
+	movq 152(%rsp), %rcx  //Load RSP
+	//Move pointer on the stack and save the RIP on trap time stack 
+	subq $8, %rcx          
+	movq %rbx, (%rcx) 
+	//Now update value of trap time stack rsp after pushing rip in UXSTACKTOP
+	movq %rcx, 152(%rsp)
+	
+	// Restore the trap-time registers.  After you do this, you
+	// can no longer modify any general-purpose registers.
+	// LAB 4: Your code here.
+	addq $16,%rsp
+	POPA_ 
+	// Restore eflags from the stack.  After you do this, you can
+	// no longer use arithmetic operations or anything else that
+	// modifies eflags.
+	// LAB 4: Your code here.
+	addq $8, %rsp
+	popfq
+	
+	// Switch back to the adjusted trap-time stack.
+	// LAB 4: Your code here.
+	popq %rsp
+	
+	// Return to re-execute the instruction that faulted.
+	// LAB 4: Your code here.
+	ret
